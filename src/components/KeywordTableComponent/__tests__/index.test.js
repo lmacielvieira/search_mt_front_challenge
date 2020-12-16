@@ -1,10 +1,10 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import {TeamTableComponent} from '../index'
+import {KeywordTableComponent} from '../index'
 
-describe('<TeamTableComponent />', () => {
-  it('renders <TeamTableComponent />', () => {
-    const wrapper = shallow(<TeamTableComponent />)
+describe('<KeywordTableComponent />', () => {
+  it('renders <KeywordTableComponent />', () => {
+    const wrapper = shallow(<KeywordTableComponent />)
     expect(wrapper).toMatchSnapshot()
   })
 })

@@ -1,40 +1,38 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
-import {ContactFormModalComponent} from '../index'
+import {CategoryFormModalComponent} from '../index'
 
-describe('<ContactDeleteModalComponent />', () => {
-  it('renders <ContactFormModalComponent /> closed', () => {
-    const wrapper = shallow(<ContactFormModalComponent />)
+describe('<CategoryFormModalComponent />', () => {
+  it('renders <CategoryFormModalComponent /> closed', () => {
+    const wrapper = shallow(<CategoryFormModalComponent />)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders <ContactFormModalComponent /> opened', () => {
-    const wrapper = shallow(<ContactFormModalComponent visible />)
+  it('renders <CategoryFormModalComponent /> opened', () => {
+    const wrapper = shallow(<CategoryFormModalComponent visible />)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders <ContactFormModalComponent /> and expect to call handleCancelCb', () => {
+  it('renders <CategoryFormModalComponent /> and expect to call handleCancelCb', () => {
     const onClose = jest.fn()
     const wrapper = shallow(
-      <ContactFormModalComponent visible handleCancelCb={onClose} />
+      <CategoryFormModalComponent visible handleCancelCb={onClose} />
     )
     wrapper.find({'data-testid': 'CFMcancelButton'}).simulate('click')
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 
-  it('renders <ContactFormModalComponent /> and expect submit to be disabled', () => {
-    const onClose = jest.fn()
-    const wrapper = shallow(<ContactFormModalComponent visible />)
+  it('renders <CategoryFormModalComponent /> and expect submit to be disabled', () => {
+    const wrapper = shallow(<CategoryFormModalComponent visible />)
     const btn = wrapper.find({'data-testid': 'CFMsubmitButton'})
     btn.simulate('click')
     expect(btn.prop('disabled')).toBe(true)
-    expect(onClose).not.toHaveBeenCalledTimes(1)
   })
 
-  it('renders <ContactFormModalComponent /> and expect submit to be enabled after typing name', () => {
-    const wrapper = mount(<ContactFormModalComponent visible />)
+  it('renders <CategoryFormModalComponent /> and expect submit to be enabled after typing name', () => {
+    const wrapper = mount(<CategoryFormModalComponent visible />)
     wrapper
-      .find({'data-testid': 'CFMnameButton'})
+      .find({'data-testid': 'CFMnameInput'})
       .at(0)
       .simulate('change', {target: {value: 'Hello world'}})
 
