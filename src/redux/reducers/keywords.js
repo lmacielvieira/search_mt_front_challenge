@@ -16,7 +16,7 @@ export default function keywordsReducer(state = INITIAL_STATE, action) {
     case ADD_KEYWORD:
       return update(state, {
         keywords: {
-          $push: [action.keyword]
+          [action.category]: {$set: action.keyword}
         }
       })
     case DELETE_KEYWORD:

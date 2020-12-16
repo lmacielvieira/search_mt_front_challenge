@@ -4,5 +4,6 @@ export const KeywordTableComponent = {
   descLabel: 'Keywords',
   deleteTooltip: 'Delete',
   editTooltip: 'Edit',
-  emptyText: 'No categories registered :('
+  emptyText: 'No categories registered :(',
+  addLabel: 'Add category'
 }

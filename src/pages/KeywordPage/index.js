@@ -1,13 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Spin, message} from 'antd'
+import {message} from 'antd'
 import t from 'typy'
 import {SETTINGS, IMAGES} from '../../settings'
 import {SearchHeaderComponent} from '../../components/SearchHeaderComponent'
 import './style.less'
 import {getTopWords} from '../../services'
 import {KeywordTableComponent} from '../../components/KeywordTableComponent'
-import {deleteKeyword} from '../../redux/actions/keywords'
+import {addKeyword, deleteKeyword} from '../../redux/actions/keywords'
+import {CategoryFormModalComponent} from '../../components/CategoryFormModalComponent'
 
 class KeywordPage extends React.Component {
   _pageName = 'keyword-page'
@@ -20,7 +21,9 @@ class KeywordPage extends React.Component {
     super(props)
 
     this.state = {
-      loading: false
+      loading: false,
+      showModal: false,
+      categoryToBeEdited: undefined
     }
   }
 
@@ -28,29 +31,36 @@ class KeywordPage extends React.Component {
   // Requests
   // -------------------------------------------------------------------------//
 
-  componentDidMount() {
-    this.requestWords()
-  }
-
-  requestWords = async () => {
-    try {
-      const response = await getTopWords('car')
-      const answers = t(response.data.ml)
-        .safeArray.slice()
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 10)
-      console.log('ans', answers)
-    } catch (e) {
-      console.log('ERR', e)
-    }
-  }
-
   // -------------------------------------------------------------------------//
   // Event Handlers
   // -------------------------------------------------------------------------//
 
-  handleCreateBtnClick = async (values) => {
-    console.log('CREATE', values)
+  handleCreateContact = async ({name}) => {
+    try {
+      this.setState({loading: true, showModal: false})
+      const response = await getTopWords(name)
+      const keywords = t(response.data.ml)
+        .safeArray.slice()
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10)
+
+      const {dispatch} = this.props
+      await dispatch(
+        addKeyword(
+          name,
+          t(keywords).safeArray.map((item) => item.word)
+        )
+      )
+
+      this.setState({loading: false})
+    } catch (e) {
+      this.setState({loading: false})
+      message.error(e.message)
+    }
+  }
+
+  handleEditContact = async (id, values) => {
+    console.log('EDIT', id, values)
   }
 
   handleFilter = async (values) => {
@@ -92,7 +102,7 @@ class KeywordPage extends React.Component {
   }
 
   renderTable = () => {
-    const {loading} = this.state
+    const {loading, showModal} = this.state
     const {state} = this.props
     const keywords = t(state, 'keywordsReducer.keywords').safeObjectOrEmpty
 
@@ -101,6 +111,9 @@ class KeywordPage extends React.Component {
         <KeywordTableComponent
           loading={loading}
           deleteCb={this.handleDeleteCategory}
+          addCb={() => {
+            this.setState({showModal: !showModal})
+          }}
           data={t(Object.keys(keywords)).safeArray.map((key) => {
             return {
               id: key,
@@ -113,8 +126,24 @@ class KeywordPage extends React.Component {
     )
   }
 
+  renderCategoryModal = () => {
+    const {showModal, categoryToBeEdited} = this.state
+
+    return (
+      <CategoryFormModalComponent
+        visible={showModal}
+        item={categoryToBeEdited}
+        handleSaveCb={this.handleCreateContact}
+        handleEditCb={this.handleEditContact}
+        handleCancelCb={() => {
+          this.setState({showModal: false, categoryToBeEdited: undefined})
+        }}
+      />
+    )
+  }
+
   render() {
-    const {loading} = this.state
+    const {loading, showModal} = this.state
     const {state} = this.props
     const keywords = t(state, 'keywordsReducer.keywords').safeObjectOrEmpty
 
@@ -124,7 +153,6 @@ class KeywordPage extends React.Component {
           optionItems={t(Object.keys(keywords)).safeArray.map((item) => {
             return {label: item, value: item}
           })}
-          handleAddBtnCb={this.handleCreateBtnClick}
           onSelectCb={this.handleFilter}
           showAddBtn={t(Object.keys(keywords)).safeArray.length > 0}
         />
@@ -132,7 +160,7 @@ class KeywordPage extends React.Component {
           t(keywords).safeArray.length === 0 &&
           this.renderEmptyKeywords()}
         {t(keywords).safeArray.length > 0 && this.renderTable()}
-        {loading && <Spin />}
+        {showModal && this.renderCategoryModal()}
       </div>
     )
   }

@@ -10,6 +10,7 @@ import {SETTINGS} from '../../settings'
 export const KeywordTableComponent = ({
   _componentName,
   title,
+  addLabel,
   nameLabel,
   descLabel,
   addCb,
@@ -108,11 +109,14 @@ export const KeywordTableComponent = ({
         <div className={`${_componentName}-title defaultText`}>
           {t(title).safeString}
         </div>
-        <Button
-          className={`${_componentName}-btn`}
-          onClick={t(addCb).safeFunction}>
-          <PlusOutlined />
-        </Button>
+        <div className={`${_componentName}-btn-box defaultText`}>
+          {addLabel}
+          <Button
+            className={`${_componentName}-btn`}
+            onClick={t(addCb).safeFunction}>
+            <PlusOutlined />
+          </Button>
+        </div>
       </div>
     )
   }
@@ -147,6 +151,7 @@ KeywordTableComponent.propTypes = {
   editTooltip: PropTypes.string,
   deleteTooltip: PropTypes.string,
   emptyText: PropTypes.string,
+  addLabel: PropTypes.string,
   loading: PropTypes.bool,
   addCb: PropTypes.func,
   editCb: PropTypes.func,
@@ -167,6 +172,7 @@ KeywordTableComponent.defaultProps = {
   descLabel: SETTINGS.KeywordTableComponent.descLabel,
   editTooltip: SETTINGS.KeywordTableComponent.editTooltip,
   emptyText: SETTINGS.KeywordTableComponent.emptyText,
+  addLabel: SETTINGS.KeywordTableComponent.addLabel,
   deleteTooltip: SETTINGS.KeywordTableComponent.deleteTooltip,
   loading: false,
   addCb: () => {},

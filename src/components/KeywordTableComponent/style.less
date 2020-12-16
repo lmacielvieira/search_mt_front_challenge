@@ -9,6 +9,12 @@
   min-height: 600px;
   flex-direction: column;
 
+  .@{componentName}-btn-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .@{componentName}-table-wrapper {
     width: 100%;
     padding: 16px 32px;
@@ -20,11 +26,15 @@
       .@{componentName}-desc {
         cursor: pointer;
         width: 80%;
-        white-space: nowrap;
+        //white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       .@{componentName}-options-wrapper {
+        width: 20%;
+        display: flex;
+        justify-content: flex-end;
+
         .@{componentName}-icon {
           width: 20%;
           cursor: pointer;
@@ -66,6 +76,7 @@
     .@{componentName}-btn {
       height: @btnHeight;
       width: @btnHeight;
+      margin-left: 8px;
       color: white;
       background-image: linear-gradient(
         to bottom,

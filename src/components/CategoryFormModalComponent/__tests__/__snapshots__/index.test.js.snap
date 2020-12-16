@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContactDeleteModalComponent /> renders <ContactFormModalComponent /> closed 1`] = `ShallowWrapper {}`;
+
+exports[`<ContactDeleteModalComponent /> renders <ContactFormModalComponent /> opened 1`] = `ShallowWrapper {}`;
