@@ -7,7 +7,11 @@ import {SearchHeaderComponent} from '../../components/SearchHeaderComponent'
 import './style.less'
 import {getTopWords} from '../../services'
 import {KeywordTableComponent} from '../../components/KeywordTableComponent'
-import {addKeyword, deleteKeyword} from '../../redux/actions/keywords'
+import {
+  addKeyword,
+  deleteKeyword,
+  editKeyword
+} from '../../redux/actions/keywords'
 import {CategoryFormModalComponent} from '../../components/CategoryFormModalComponent'
 
 class KeywordPage extends React.Component {
@@ -60,7 +64,17 @@ class KeywordPage extends React.Component {
   }
 
   handleEditContact = async (id, values) => {
-    console.log('EDIT', id, values)
+    try {
+      this.setState({loading: true, showModal: false})
+
+      const {dispatch} = this.props
+      await dispatch(editKeyword(id, values.name, values.desc))
+
+      this.setState({loading: false, categoryToBeEdited: undefined})
+    } catch (e) {
+      this.setState({loading: false, categoryToBeEdited: undefined})
+      message.error(e.message)
+    }
   }
 
   handleFilter = async (values) => {
@@ -113,6 +127,16 @@ class KeywordPage extends React.Component {
           deleteCb={this.handleDeleteCategory}
           addCb={() => {
             this.setState({showModal: !showModal})
+          }}
+          editCb={(item) => {
+            this.setState({
+              showModal: !showModal,
+              categoryToBeEdited: {
+                ...item,
+                _id: item.name,
+                desc: t(item, 'desc').safeString.split(',')
+              }
+            })
           }}
           data={t(Object.keys(keywords)).safeArray.map((key) => {
             return {

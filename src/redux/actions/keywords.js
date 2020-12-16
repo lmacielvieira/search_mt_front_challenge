@@ -8,11 +8,12 @@ export function addKeyword(category, keyword) {
   }
 }
 
-export function editKeyword(index, info) {
+export function editKeyword(id, category, keyword) {
   return {
     type: EDIT_KEYWORD,
-    index,
-    info
+    id,
+    category,
+    keyword
   }
 }
 

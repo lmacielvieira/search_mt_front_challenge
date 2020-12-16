@@ -117,7 +117,11 @@ export const CategoryFormModalComponent = ({
                   message: requiredLabel
                 }
               ]}>
-              <Select data-testid="CFMtagsInput" mode="tags" />
+              <Select
+                data-testid="CFMtagsInput"
+                mode="tags"
+                onChange={handleFieldChange}
+              />
             </Form.Item>
           )}
         </div>

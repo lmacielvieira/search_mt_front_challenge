@@ -65,7 +65,7 @@ export const KeywordTableComponent = ({
         <div className={`${_componentName}-options-wrapper`}>
           <Tooltip title={deleteTooltip}>
             <Popconfirm
-              title="Are you sure to delete this team?"
+              title="Are you sure to delete this category?"
               onConfirm={() => {
                 t(deleteCb).safeFunction(record)
               }}

@@ -28,9 +28,8 @@ export default function keywordsReducer(state = INITIAL_STATE, action) {
     case EDIT_KEYWORD:
       return update(state, {
         keywords: {
-          [action.index]: {
-            $set: action.info
-          }
+          $unset: [action.id],
+          [action.category]: {$set: action.keyword}
         }
       })
     default:
