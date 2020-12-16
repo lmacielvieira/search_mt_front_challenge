@@ -34,11 +34,11 @@ export const SearchHeaderComponent = ({
   const handleSearchChange = (value) => {
     const searchResultItems = t(searchResult(value)).safeArray
     setOptions(value ? searchResultItems : optionItems)
-    t(onSelectCb).safeFunction(searchResultItems.map((item) => item.key))
+    t(onSelectCb).safeFunction(searchResultItems.map((item) => item.label))
   }
 
   const onSelect = (value, option) => {
-    t(onSelectCb).safeFunction([option.key])
+    t(onSelectCb).safeFunction([option.label])
   }
   // -------------------------------------------------------------------------//
   // Effects

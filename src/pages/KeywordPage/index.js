@@ -27,7 +27,8 @@ class KeywordPage extends React.Component {
     this.state = {
       loading: false,
       showModal: false,
-      categoryToBeEdited: undefined
+      categoryToBeEdited: undefined,
+      filteredItems: []
     }
   }
 
@@ -78,11 +79,10 @@ class KeywordPage extends React.Component {
   }
 
   handleFilter = async (values) => {
-    console.log('Filter', values)
+    this.setState({filteredItems: values})
   }
 
   handleDeleteCategory = async (item) => {
-    console.log('Delete', item)
     try {
       const {dispatch} = this.props
       await dispatch(deleteKeyword(item.id))
@@ -116,7 +116,7 @@ class KeywordPage extends React.Component {
   }
 
   renderTable = () => {
-    const {loading, showModal} = this.state
+    const {loading, showModal, filteredItems} = this.state
     const {state} = this.props
     const keywords = t(state, 'keywordsReducer.keywords').safeObjectOrEmpty
 
@@ -138,13 +138,21 @@ class KeywordPage extends React.Component {
               }
             })
           }}
-          data={t(Object.keys(keywords)).safeArray.map((key) => {
-            return {
-              id: key,
-              name: key,
-              desc: t(keywords[key]).safeArray.join(', ')
-            }
-          })}
+          data={t(Object.keys(keywords))
+            .safeArray.map((key) => {
+              if (
+                t(filteredItems).safeArray.length > 0 &&
+                !t(filteredItems).safeArray.includes(key)
+              ) {
+                return null
+              }
+              return {
+                id: key,
+                name: key,
+                desc: t(keywords[key]).safeArray.join(', ')
+              }
+            })
+            .filter((el) => el != null)}
         />
       </div>
     )
