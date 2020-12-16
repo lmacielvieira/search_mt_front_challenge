@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@apollo/client": "^3.3.6",
     "@babel/core": "7.9.0",
     "@sentry/react": "^5.27.1",

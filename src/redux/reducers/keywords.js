@@ -22,7 +22,7 @@ export default function keywordsReducer(state = INITIAL_STATE, action) {
     case DELETE_KEYWORD:
       return update(state, {
         keywords: {
-          $splice: [[action.index, 1]]
+          $unset: [action.index]
         }
       })
     case EDIT_KEYWORD:

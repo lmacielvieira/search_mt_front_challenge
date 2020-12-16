@@ -1,11 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Spin} from 'antd'
+import {Spin, message} from 'antd'
 import t from 'typy'
 import {SETTINGS, IMAGES} from '../../settings'
 import {SearchHeaderComponent} from '../../components/SearchHeaderComponent'
 import './style.less'
 import {getTopWords} from '../../services'
+import {KeywordTableComponent} from '../../components/KeywordTableComponent'
+import {deleteKeyword} from '../../redux/actions/keywords'
 
 class KeywordPage extends React.Component {
   _pageName = 'keyword-page'
@@ -55,6 +57,17 @@ class KeywordPage extends React.Component {
     console.log('Filter', values)
   }
 
+  handleDeleteCategory = async (item) => {
+    console.log('Delete', item)
+    try {
+      const {dispatch} = this.props
+      await dispatch(deleteKeyword(item.id))
+    } catch (e) {
+      console.log('ERROR DELETING', e)
+      message.error(e.message)
+    }
+  }
+
   // -------------------------------------------------------------------------//
   // Other Functions
   // -------------------------------------------------------------------------//
@@ -78,11 +91,33 @@ class KeywordPage extends React.Component {
     )
   }
 
+  renderTable = () => {
+    const {loading} = this.state
+    const {state} = this.props
+    const keywords = t(state, 'keywordsReducer.keywords').safeObjectOrEmpty
+
+    return (
+      <div className={`${this._pageName}-table-wrapper`}>
+        <KeywordTableComponent
+          loading={loading}
+          deleteCb={this.handleDeleteCategory}
+          data={t(Object.keys(keywords)).safeArray.map((key) => {
+            return {
+              id: key,
+              name: key,
+              desc: t(keywords[key]).safeArray.join(', ')
+            }
+          })}
+        />
+      </div>
+    )
+  }
+
   render() {
     const {loading} = this.state
     const {state} = this.props
     const keywords = t(state, 'keywordsReducer.keywords').safeObjectOrEmpty
-    console.log('JE', keywords)
+
     return (
       <div className={`${this._pageName}`}>
         <SearchHeaderComponent
@@ -96,7 +131,7 @@ class KeywordPage extends React.Component {
         {!loading &&
           t(keywords).safeArray.length === 0 &&
           this.renderEmptyKeywords()}
-        {t(keywords).safeArray.length > 0 && this.renderEmptyKeywords()}
+        {t(keywords).safeArray.length > 0 && this.renderTable()}
         {loading && <Spin />}
       </div>
     )
