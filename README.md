@@ -1,6 +1,6 @@
-# Lucas Maciel - Oi full stack test
+# Lucas Maciel - Searchmetrics test
 
-Oi Test Front end project
+S Searchmetrics Front end project
 
 
 ## Getting Started
@@ -9,6 +9,10 @@ These instructions will get you a copy of the project up and
 running on your local machine for development and testing 
 purposes. See deployment for notes on how to deploy the 
 project on a live system.
+
+*** This project used my personal react boilerplate (lucas maciel). As no 
+design was given, i used some parts of a previous project, in order to
+have a nice user experience.
 
 ### Prerequisites and main libs
 
