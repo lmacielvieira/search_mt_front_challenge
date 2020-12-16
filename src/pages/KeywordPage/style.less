@@ -1,0 +1,98 @@
+@import (reference) '../../styles/globalStyle';
+@pageName: ~'keyword-page';
+
+.@{pageName} {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+  .ant-table-content {
+    border: 1px solid @white;
+    border-radius: 4px;
+    overflow: hidden;
+
+    th {
+      background-color: @white;
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: @blueyGrey;
+    }
+
+    td {
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: black;
+    }
+
+    .highlight {
+      background: @veryLightPink;
+    }
+  }
+
+  .@{pageName}-avatar {
+    width: 24px;
+    height: 24px;
+    background-color: #fa8d68;
+    border-radius: 100%;
+    overflow: hidden;
+    color: @white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .@{pageName}-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 237px;
+    height: 200px;
+  }
+
+  .@{pageName}-table-wrapper {
+    width: calc(100% - 32px);
+    margin: 16px;
+  }
+
+  .@{pageName}-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .@{pageName}-empty-wrapper {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 32px);
+    margin: 16px;
+    margin-top: 96px;
+    align-items: center;
+    flex-direction: column;
+    transition: all 5s;
+
+    .@{pageName}-empty-icon {
+      width: 237px;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 24px;
+    }
+    .@{pageName}-empty-text {
+      margin-bottom: 24px;
+    }
+  }
+}

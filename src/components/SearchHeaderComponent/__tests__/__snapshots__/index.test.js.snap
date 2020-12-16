@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchHeaderComponent /> renders <CreateButtonComponent /> 1`] = `ShallowWrapper {}`;
+
+exports[`<SearchHeaderComponent /> renders <SearchHeaderComponent /> 1`] = `ShallowWrapper {}`;
+
+exports[`<SearchHeaderComponent /> renders <SearchHeaderComponent /> with add button 1`] = `ShallowWrapper {}`;

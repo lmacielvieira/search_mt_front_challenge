@@ -1,0 +1,78 @@
+@import (reference) '../../styles/globalStyle';
+@componentName: ~'search-header-component';
+@iconWidth: 45px;
+@iconHeight: 45px;
+@iconRightMargin: 16px;
+
+.@{componentName} {
+  width: 100%;
+  min-height: 64px;
+  background: @white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  overflow: hidden;
+
+  .@{componentName}-btn-wrapper{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 32px;
+  }
+
+  .@{componentName}-icon {
+    width: @iconWidth;
+    height: @iconHeight;
+    object-fit: contain;
+  }
+
+  .ant-select {
+    width: calc(100% - @iconWidth - @iconRightMargin - 200px);
+    max-width: 1032px;
+  }
+  .ant-input .ant-input-search {
+    background: @paleLilac;
+    border: 1px solid @paleLilac;
+    color: @blueyGrey;
+    height: 32px;
+  }
+  .ant-input-affix-wrapper > input.ant-input {
+    background: @paleLilac;
+    color: @blueyGrey;
+  }
+
+  .ant-input-affix-wrapper {
+    background: @paleLilac;
+    color: @blueyGrey;
+  }
+
+  .ant-btn-primary {
+    box-shadow: 0 0px 0 rgba(0, 0, 0, 0.045);
+  }
+  .ant-input-search-enter-button.ant-input-affix-wrapper {
+    background: @paleLilac;
+    color: @blueyGrey;
+    border: 1px solid @paleLilac;
+  }
+  .anticon svg {
+    color: @white;
+  }
+}
+
+@media screen and (max-width: @screen-md) {
+  .@{componentName} {
+    .ant-select {
+      margin: 16px;
+      width: 100%;
+    }
+
+    .@{componentName}-btn-wrapper{
+      margin: 8px;
+    }
+  }
+}
+
