@@ -29,7 +29,7 @@ context("Simple render and routing", () => {
     cy.get(".okBtn").click();
 
     // check if duck was added
-    cy.wait(500);
+    cy.wait(2500);
     cy.contains("duck");
 
     // delete duck

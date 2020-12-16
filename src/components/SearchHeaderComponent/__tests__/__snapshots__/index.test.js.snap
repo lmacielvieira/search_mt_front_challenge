@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchHeaderComponent /> renders <SearchHeaderComponent /> 1`] = `ShallowWrapper {}`;
